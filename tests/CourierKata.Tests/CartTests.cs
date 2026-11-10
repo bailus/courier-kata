@@ -14,9 +14,9 @@ public class CartTests
 
         Assert.Equal(
             [
-                new LineItem(ExtraLarge, ParcelSize.ExtraLarge, 25m),
-                new LineItem(Small, ParcelSize.Small, 3m),
-                new LineItem(Medium, ParcelSize.Medium, 8m),
+                new ParcelLineItem(ExtraLarge, ParcelSize.ExtraLarge, 25m),
+                new ParcelLineItem(Small, ParcelSize.Small, 3m),
+                new ParcelLineItem(Medium, ParcelSize.Medium, 8m),
             ],
             cart.GetQuote().Items);
     }
@@ -28,8 +28,8 @@ public class CartTests
 
         Assert.Equal(
             [
-                new LineItem(Small, ParcelSize.Small, 3m),
-                new LineItem(Small, ParcelSize.Small, 3m),
+                new ParcelLineItem(Small, ParcelSize.Small, 3m),
+                new ParcelLineItem(Small, ParcelSize.Small, 3m),
             ],
             cart.GetQuote().Items);
     }

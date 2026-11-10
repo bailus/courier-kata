@@ -2,8 +2,8 @@
 
 ## 1. Split line items into a closed hierarchy (refactor, no behaviour change)
 
-- [ ] 1.1 Make `LineItem` an abstract record with `Cost` and a `private protected` constructor, add `sealed record ParcelLineItem(Parcel, ParcelSize, Cost) : LineItem`, and make `ParcelPricing.Price` return `ParcelLineItem`. Update the existing tests (`CartTests`, `ParcelCostTests`, `ParcelSizeTests`) to use `ParcelLineItem` where they read `Size` or `Parcel`. Verify that `docker compose run --rm tests` passes with no other test changes and zero warnings.
-- [ ] 1.2 Commit the refactor.
+- [x] 1.1 Make `LineItem` an abstract record with `Cost` and a `private protected` constructor, add `sealed record ParcelLineItem(Parcel, ParcelSize, Cost) : LineItem`, and make `ParcelPricing.Price` return `ParcelLineItem`. Update the existing tests (`CartTests`, `ParcelCostTests`, `ParcelSizeTests`) to use `ParcelLineItem` where they read `Size` or `Parcel`. Verify that `docker compose run --rm tests` passes with no other test changes and zero warnings.
+- [x] 1.2 Commit the refactor.
 
 ## 2. Speedy shipping pricing (test first, starting with the brief's example)
 

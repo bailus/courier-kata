@@ -25,9 +25,9 @@ internal static class ParcelPricing
         _ => throw new ArgumentOutOfRangeException(nameof(size), size, "Unknown parcel size."),
     };
 
-    public static LineItem Price(Parcel parcel)
+    public static ParcelLineItem Price(Parcel parcel)
     {
         var size = Classify(parcel);
-        return new LineItem(parcel, size, PriceOf(size));
+        return new ParcelLineItem(parcel, size, PriceOf(size));
     }
 }
