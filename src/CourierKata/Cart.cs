@@ -14,5 +14,5 @@ public sealed class Cart
 
     /// <summary>Prices every parcel in the cart.</summary>
     public Quote GetQuote() =>
-        new(_parcels.Select(parcel => new LineItem(parcel, ParcelPricing.Classify(parcel))).ToList());
+        new(_parcels.Select(ParcelPricing.Price).ToList());
 }

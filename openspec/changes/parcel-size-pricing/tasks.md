@@ -18,8 +18,8 @@
 
 ## 3. Cost per size
 
-- [ ] 3.1 Write a failing `[Theory]` asserting line-item costs Small $3, Medium $8, Large $15, XL $25, then implement the price lookup; verify with `dotnet test`
-- [ ] 3.2 Add assumptions for decimal USD with no currency type and "cheapest = smallest fitting size" for this step; commit with the code
+- [x] 3.1 Write a failing `[Theory]` asserting line-item costs Small $3, Medium $8, Large $15, XL $25, then implement the price lookup; verify with `dotnet test`
+- [x] 3.2 Add assumptions for decimal USD with no currency type and "cheapest = smallest fitting size" for this step; commit with the code
 
 ## 4. Parcel validation
 

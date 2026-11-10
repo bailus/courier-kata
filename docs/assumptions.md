@@ -47,3 +47,22 @@ same commit as the code that depends on them.
 - **Assumed:** The method is `Cart.AddParcel`.
 - **Why:** PascalCase is the C# convention for public methods; the brief's
   camelCase reads as language-neutral.
+
+## Pricing
+
+### Costs are plain decimal dollars
+
+- **Unclear:** What currency costs are in and how money should be represented.
+- **Assumed:** Costs are `decimal` amounts in US dollars, with no currency type.
+- **Why:** The brief only uses `$` and has no multi-currency requirement, so a
+  `Money` type would add nothing yet. `decimal` keeps amounts exact.
+
+### Cheapest option is the smallest size that fits
+
+- **Unclear:** "In all circumstances the cheapest option for sending each parcel
+  should be selected" implies a choice between options.
+- **Assumed:** With size-only pricing, the only option is the smallest size the
+  parcel fits, which is also the cheapest because prices rise with size. No
+  general "compare every option" logic is built yet.
+- **Why:** This change covers step 1 only. A selector between competing options
+  belongs with the later rule (such as weight) that makes it necessary.
