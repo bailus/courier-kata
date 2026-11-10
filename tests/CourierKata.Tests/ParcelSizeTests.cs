@@ -72,6 +72,6 @@ public class ParcelSizeTests
         var cart = new Cart();
         cart.AddParcel(new Parcel(length, width, height));
 
-        return Assert.Single(cart.GetQuote().Items).Size;
+        return Assert.IsType<ParcelLineItem>(Assert.Single(cart.GetQuote().Items)).Size;
     }
 }

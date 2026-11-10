@@ -12,7 +12,7 @@ public class ParcelCostTests
         var cart = new Cart();
         cart.AddParcel(new Parcel(largestDimension, 1m, 1m));
 
-        var item = Assert.Single(cart.GetQuote().Items);
+        var item = Assert.IsType<ParcelLineItem>(Assert.Single(cart.GetQuote().Items));
 
         Assert.Equal(expectedSize, item.Size);
         Assert.Equal(expectedCost, item.Cost);
