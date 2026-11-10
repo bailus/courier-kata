@@ -19,12 +19,12 @@ See proposal.md for the motivation. Today `LineItem(Parcel, Size, Cost)` is a se
 
 ### Line items become a closed hierarchy
 ```
-public abstract record LineItem(decimal Cost)            // private protected constructor
+public abstract record LineItem      // private protected LineItem(decimal cost); internal abstract void SealHierarchy();
 public sealed record ParcelLineItem(Parcel Parcel, ParcelSize Size, decimal Cost) : LineItem(Cost)
 public sealed record SpeedyShippingLineItem(decimal Cost) : LineItem(Cost)
 ```
 - Speedy is listed as a separate item in the same `Items` list, so `Quote` keeps its shape and `Total` stays the sum of `Items`.
-- The base constructor is `private protected`, so only this assembly can add item kinds and callers can rely on there being exactly two.
+- Only this assembly can add item kinds, so callers can rely on there being exactly two. A `private protected` constructor is not enough on its own: records always get a `protected` copy constructor, and another assembly can derive through it (checked with a probe project). An `internal abstract` member closes that gap, because a type outside the assembly can't implement it and fails with CS0534.
 - The name `LineItem` stays on the base so that code reading only `Cost` keeps compiling. The parcel-specific fields move to `ParcelLineItem`.
 - Alternatives considered: a separate `Quote.SpeedyShipping` member (simpler for callers, but less literal to "listed as a separate item"), and a separate list of extras. The user chose the hierarchy.
 
