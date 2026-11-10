@@ -23,8 +23,8 @@
 
 ## 4. Parcel validation
 
-- [ ] 4.1 Write failing tests that zero and negative values for each of length, width and height throw `ArgumentOutOfRangeException` whose `ParamName` names the dimension; implement validation in `Parcel`; verify with `dotnet test`
-- [ ] 4.2 Add the assumption that zero or negative dimensions are rejected; commit with the code
+- [x] 4.1 Write failing tests that zero and negative values for each of length, width and height throw `ArgumentOutOfRangeException` whose `ParamName` names the dimension; implement validation in `Parcel`; verify with `dotnet test`
+- [x] 4.2 Add the assumption that zero or negative dimensions are rejected; commit with the code
 
 ## 5. Cart and quote behaviour
 

@@ -66,3 +66,16 @@ same commit as the code that depends on them.
   general "compare every option" logic is built yet.
 - **Why:** This change covers step 1 only. A selector between competing options
   belongs with the later rule (such as weight) that makes it necessary.
+
+## Validation
+
+### Zero or negative dimensions are rejected
+
+- **Unclear:** The brief does not say what happens with a dimension of zero or
+  less.
+- **Assumed:** Creating a `Parcel` with any dimension that is zero or negative
+  throws `ArgumentOutOfRangeException` naming that dimension.
+- **Why:** A physical parcel can't measure 0 cm or less, and failing early is
+  better than quoting $3 for nonsense input. Validating in the `Parcel`
+  constructor means an invalid parcel can never reach a `Cart`. `decimal` has no
+  NaN or infinity, so no other checks are needed.
