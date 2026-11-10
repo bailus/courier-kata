@@ -8,13 +8,13 @@
 
 ## 2. Size classification (tests first, one size at a time)
 
-- [ ] 2.1 Write a failing `[Theory]` for Small (e.g. 1x1x1, 9.99x5x5) that adds a `Parcel` to a `Cart` and asserts the quote's single line item has `ParcelSize.Small`; add the minimal `Parcel`, `ParcelSize`, `LineItem`, `Quote` and `Cart` to make it pass; verify with `dotnet test`
-- [ ] 2.2 Write a failing `[Theory]` for Medium (10x5x5 and 49.99x5x5) and extend classification to pass; verify with `dotnet test`
-- [ ] 2.3 Write a failing `[Theory]` for Large (50x5x5 and 99.99x5x5) and extend classification to pass; verify with `dotnet test`
-- [ ] 2.4 Write a failing `[Theory]` for XL (100x5x5 and 10,000x5x5) and extend classification to pass; verify with `dotnet test`
-- [ ] 2.5 Add a `[Theory]` that the largest dimension decides regardless of position (60x5x5, 5x60x5, 5x5x60 are all Large); verify it passes
-- [ ] 2.6 Refactor classification into an internal pricing class (design.md, Pricing internals) with no change to tests; verify `dotnet test` passes
-- [ ] 2.7 Add assumptions for the XL `>= 100` boundary, boundary values going up a bracket, three decimal cm dimensions, no upper size limit, and `AddParcel` naming to `docs/assumptions.md`; commit with the code
+- [x] 2.1 Write a failing `[Theory]` for Small (e.g. 1x1x1, 9.99x5x5) that adds a `Parcel` to a `Cart` and asserts the quote's single line item has `ParcelSize.Small`; add the minimal `Parcel`, `ParcelSize`, `LineItem`, `Quote` and `Cart` to make it pass; verify with `dotnet test`
+- [x] 2.2 Write a failing `[Theory]` for Medium (10x5x5 and 49.99x5x5) and extend classification to pass; verify with `dotnet test`
+- [x] 2.3 Write a failing `[Theory]` for Large (50x5x5 and 99.99x5x5) and extend classification to pass; verify with `dotnet test`
+- [x] 2.4 Write a failing `[Theory]` for XL (100x5x5 and 10,000x5x5) and extend classification to pass; verify with `dotnet test`
+- [x] 2.5 Add a `[Theory]` that the largest dimension decides regardless of position (60x5x5, 5x60x5, 5x5x60 are all Large); verify it passes
+- [x] 2.6 Refactor classification into an internal pricing class (design.md, Pricing internals) with no change to tests; verify `dotnet test` passes
+- [x] 2.7 Add assumptions for the XL `>= 100` boundary, boundary values going up a bracket, three decimal cm dimensions, no upper size limit, and `AddParcel` naming to `docs/assumptions.md`; commit with the code
 
 ## 3. Cost per size
 
