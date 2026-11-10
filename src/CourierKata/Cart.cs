@@ -6,7 +6,20 @@ public sealed class Cart
     private readonly List<Parcel> _parcels = [];
 
     /// <summary>How fast the order is shipped. Defaults to <see cref="Shipping.Standard"/>.</summary>
-    public Shipping Shipping { get; set; } = Shipping.Standard;
+    /// <exception cref="ArgumentOutOfRangeException">The value is not a defined <see cref="CourierKata.Shipping"/>.</exception>
+    public Shipping Shipping
+    {
+        get;
+        set
+        {
+            if (!Enum.IsDefined(value))
+            {
+                throw new ArgumentOutOfRangeException(nameof(value), value, "Unknown shipping option.");
+            }
+
+            field = value;
+        }
+    } = Shipping.Standard;
 
     /// <summary>Adds a parcel to the cart.</summary>
     public void AddParcel(Parcel parcel)

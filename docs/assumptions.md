@@ -139,3 +139,24 @@ same commit as the code that depends on them.
 - **Assumed:** It has a single speedy line item costing $0 and a total of $0.
 - **Why:** The rule stays simple: the speedy item appears exactly when speedy
   is selected, regardless of the cart's contents.
+
+### Shipping is chosen on the cart and can be changed back
+
+- **Unclear:** How the user selects speedy shipping, and whether they can
+  undo it.
+- **Assumed:** `Cart.Shipping` is a settable property, `Standard` by default.
+  It can be changed in either direction at any time, before or after parcels
+  are added; quotes already taken don't change.
+- **Why:** Shipping speed is part of the order, like the parcels. A single
+  property covers selecting, deselecting and reading back the choice, and an
+  enum leaves room for other speeds.
+
+### Undefined shipping values are rejected
+
+- **Unclear:** What happens if a value outside the `Shipping` enum (such as
+  `(Shipping)42`) is set.
+- **Assumed:** The setter throws `ArgumentOutOfRangeException` and the current
+  shipping option is kept.
+- **Why:** C# enums accept any underlying integer, so an unchecked value would
+  silently be treated as Standard. Failing early matches how `Parcel` rejects
+  invalid dimensions.

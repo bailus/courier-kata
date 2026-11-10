@@ -25,15 +25,15 @@
 
 ## 3. Shipping option on the cart
 
-- [ ] 3.1 Add tests for these cases, implementing anything still missing:
+- [x] 3.1 Add tests for these cases, implementing anything still missing:
   - a new cart defaults to `Standard`
   - switching from Speedy back to Standard removes the speedy item
   - selecting Speedy before adding parcels (Small and XL: speedy $28, total $56)
   - changing shipping after a quote leaves the earlier quote unchanged
 
   Verify with `docker compose run --rm tests`.
-- [ ] 3.2 Write a failing test that setting `(Shipping)42` throws `ArgumentOutOfRangeException` and leaves `Shipping` unchanged. Implement the `Enum.IsDefined` guard in the setter. Verify with `docker compose run --rm tests`.
-- [ ] 3.3 Add assumptions for choosing shipping on the cart (it can be changed back) and for rejecting undefined `Shipping` values. Commit them with the code.
+- [x] 3.2 Write a failing test that setting `(Shipping)42` throws `ArgumentOutOfRangeException` and leaves `Shipping` unchanged. Implement the `Enum.IsDefined` guard in the setter. Verify with `docker compose run --rm tests`.
+- [x] 3.3 Add assumptions for choosing shipping on the cart (it can be changed back) and for rejecting undefined `Shipping` values. Commit them with the code.
 
 ## 4. Final checks
 
