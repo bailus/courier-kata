@@ -28,10 +28,10 @@
 
 ## 5. Cart and quote behaviour
 
-- [ ] 5.1 Write failing tests for line items in insertion order (XL, Small, Medium) and for adding the same parcel twice; implement; verify with `dotnet test`
-- [ ] 5.2 Write failing tests for the total (one of each size = $51) and the empty cart (no items, $0); implement; verify with `dotnet test`
-- [ ] 5.3 Write failing tests that quoting twice gives equal results and that a quote taken before adding a parcel is unchanged afterwards; implement (copy items into a read-only list); verify with `dotnet test`
-- [ ] 5.4 Add assumptions for empty cart = $0 and insertion order; commit with the code
+- [x] 5.1 Write failing tests for line items in insertion order (XL, Small, Medium) and for adding the same parcel twice; implement; verify with `dotnet test`
+- [x] 5.2 Write failing tests for the total (one of each size = $51) and the empty cart (no items, $0); implement; verify with `dotnet test`
+- [x] 5.3 Write failing tests that quoting twice gives equal results and that a quote taken before adding a parcel is unchanged afterwards; implement (copy items into a read-only list); verify with `dotnet test`
+- [x] 5.4 Add assumptions for empty cart = $0 and insertion order; commit with the code
 
 ## 6. Final checks
 

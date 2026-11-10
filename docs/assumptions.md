@@ -79,3 +79,26 @@ same commit as the code that depends on them.
   better than quoting $3 for nonsense input. Validating in the `Parcel`
   constructor means an invalid parcel can never reach a `Cart`. `decimal` has no
   NaN or infinity, so no other checks are needed.
+
+## Cart and quote
+
+### Line items keep insertion order
+
+- **Unclear:** The brief asks for "a collection of items" without an order.
+- **Assumed:** A quote lists one line item per parcel in the order the parcels
+  were added, including repeats of the same parcel.
+- **Why:** It's predictable for callers and easy to match items back to input.
+
+### Empty cart costs nothing
+
+- **Unclear:** What a quote for an empty cart should be.
+- **Assumed:** It has no line items and a total of $0; it is not an error.
+- **Why:** Zero is the natural total of nothing, and an empty cart is a valid
+  state before parcels are added.
+
+### Getting a quote does not change the cart
+
+- **Unclear:** Whether producing the output "checks out" the cart.
+- **Assumed:** `GetQuote()` is a read. It can be called repeatedly, and each
+  quote is an independent snapshot that later `AddParcel` calls don't change.
+- **Why:** The brief describes calculating a cost, not completing a purchase.

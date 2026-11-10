@@ -13,6 +13,9 @@ public sealed class Cart
     }
 
     /// <summary>Prices every parcel in the cart.</summary>
-    public Quote GetQuote() =>
-        new(_parcels.Select(ParcelPricing.Price).ToList());
+    public Quote GetQuote()
+    {
+        var items = _parcels.Select(ParcelPricing.Price).ToList().AsReadOnly();
+        return new Quote(items, items.Sum(item => item.Cost));
+    }
 }
