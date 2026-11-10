@@ -35,7 +35,7 @@
 
 ## 6. Final checks
 
-- [ ] 6.1 Confirm the public surface is only `Cart`, `Parcel`, `ParcelSize`, `LineItem` and `Quote` (everything else `internal`), and that every spec scenario in `specs/parcel-pricing/spec.md` has a matching test; verify `dotnet build` has zero warnings, `dotnet test` passes, `docker compose run --rm tests` passes, and `dotnet format --verify-no-changes` succeeds
+- [x] 6.1 Confirm the public surface is only `Cart`, `Parcel`, `ParcelSize`, `LineItem` and `Quote` (everything else `internal`), and that every spec scenario in `specs/parcel-pricing/spec.md` has a matching test; verify `dotnet build` has zero warnings, `dotnet test` passes, `docker compose run --rm tests` passes, and `dotnet format --verify-no-changes` succeeds
 
 ## Workflow follow-up
 
