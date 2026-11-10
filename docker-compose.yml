@@ -1,0 +1,28 @@
+# Runs the test suite inside a .NET SDK container, so no local SDK is needed.
+#
+#   docker compose run --rm tests
+#
+# The source is mounted read-only. Build output (bin/obj) goes to a named
+# volume instead of the host checkout, so no root-owned files land in the repo.
+# Restored NuGet packages are kept in a named volume to make later runs faster.
+
+services:
+  tests:
+    image: mcr.microsoft.com/dotnet/sdk:10.0
+    working_dir: /src
+    # Use Docker's default bridge instead of creating a per-project network;
+    # the tests only need outbound access for NuGet restore.
+    network_mode: bridge
+    volumes:
+      - .:/src:ro
+      - artifacts:/artifacts
+      - nuget:/root/.nuget/packages
+    environment:
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+      DOTNET_NOLOGO: "1"
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "1"
+    command: ["dotnet", "test", "--artifacts-path", "/artifacts"]
+
+volumes:
+  artifacts:
+  nuget:
