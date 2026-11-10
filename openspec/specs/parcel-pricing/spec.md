@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Prices a cart of parcels for delivery by classifying each parcel by its size and producing a quote with per-parcel costs and a total.
+Prices a cart of parcels for delivery by classifying each parcel by its size and producing a quote with per-parcel costs, any charge for the chosen shipping option, and a total.
 
 ## Requirements
 
