@@ -7,15 +7,15 @@
 
 ## 2. Speedy shipping pricing (test first, starting with the brief's example)
 
-- [ ] 2.1 Write a failing test: one parcel of each size with `cart.Shipping = Shipping.Speedy` gives parcel items of $3, $8, $15 and $25, then a `SpeedyShippingLineItem` of $51, and a total of $102. Add the `Shipping` enum, the `Cart.Shipping` property (default `Standard`), `SpeedyShippingLineItem`, and the speedy item in `Cart.GetQuote()` to make it pass. Verify with `docker compose run --rm tests`.
-- [ ] 2.2 Add tests for these cases, implementing anything still missing:
+- [x] 2.1 Write a failing test: one parcel of each size with `cart.Shipping = Shipping.Speedy` gives parcel items of $3, $8, $15 and $25, then a `SpeedyShippingLineItem` of $51, and a total of $102. Add the `Shipping` enum, the `Cart.Shipping` property (default `Standard`), `SpeedyShippingLineItem`, and the speedy item in `Cart.GetQuote()` to make it pass. Verify with `docker compose run --rm tests`.
+- [x] 2.2 Add tests for these cases, implementing anything still missing:
   - standard shipping has no speedy item (Small only: total $3)
   - parcel items are equal under Standard and Speedy
   - the speedy item comes last (Medium, Small with Speedy: $8, $3, speedy $11)
   - an empty cart with Speedy has a single $0 speedy item and a $0 total
 
   Verify with `docker compose run --rm tests`.
-- [ ] 2.3 Add these assumptions to `docs/assumptions.md`:
+- [x] 2.3 Add these assumptions to `docs/assumptions.md`:
   - the speedy charge equals the parcel subtotal
   - the speedy item comes last
   - standard shipping shows no speedy item

@@ -102,3 +102,40 @@ same commit as the code that depends on them.
 - **Assumed:** `GetQuote()` is a read. It can be called repeatedly, and each
   quote is an independent snapshot that later `AddParcel` calls don't change.
 - **Why:** The brief describes calculating a cost, not completing a purchase.
+
+## Speedy shipping
+
+### Speedy charge equals the parcel subtotal
+
+- **Unclear:** "Speedy shipping doubles the cost of the entire order" while
+  also being "listed as a separate item" and not changing parcel prices.
+- **Assumed:** The speedy shipping line item costs the sum of the parcel
+  line-item costs. The total is still the sum of every line item, so it
+  doubles.
+- **Why:** This is the only reading that doubles the total, keeps parcel costs
+  unchanged and shows speedy as its own item. It matches the brief's example
+  ($51 of parcels, $51 speedy, $102 total). Only parcel costs are doubled for
+  now; how speedy combines with later rules such as discounts is left to the
+  change that adds them.
+
+### Speedy item comes last
+
+- **Unclear:** Where the speedy item appears among the line items.
+- **Assumed:** It comes after all the parcel line items, and appears once.
+- **Why:** Its cost depends on all the parcels, and the brief's example lists
+  it after them.
+
+### Standard shipping shows no speedy item
+
+- **Unclear:** Whether a quote without speedy shipping lists it at $0.
+- **Assumed:** With standard shipping there is no speedy line item.
+- **Why:** The item represents a choice the customer made; a $0 line for an
+  option they didn't choose adds noise.
+
+### Empty cart with speedy shipping shows a $0 speedy item
+
+- **Unclear:** What a quote looks like when speedy is selected but the cart is
+  empty.
+- **Assumed:** It has a single speedy line item costing $0 and a total of $0.
+- **Why:** The rule stays simple: the speedy item appears exactly when speedy
+  is selected, regardless of the cart's contents.
