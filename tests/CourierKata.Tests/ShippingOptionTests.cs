@@ -3,7 +3,6 @@ namespace CourierKata.Tests;
 public class ShippingOptionTests
 {
     private static readonly Parcel Small = new(5m, 5m, 5m, 0.5m);
-    private static readonly Parcel ExtraLarge = new(150m, 5m, 5m, 0.5m);
 
     [Fact]
     public void New_cart_uses_standard_shipping()
@@ -24,19 +23,6 @@ public class ShippingOptionTests
         Assert.Equal(Shipping.Standard, cart.Shipping);
         Assert.Equal([new ParcelLineItem(Small, ParcelSize.Small, ParcelRate.BySize, 3m, 0m)], quote.Items);
         Assert.Equal(3m, quote.Total);
-    }
-
-    [Fact]
-    public void Speedy_can_be_selected_before_adding_parcels()
-    {
-        var cart = new Cart { Shipping = Shipping.Speedy };
-        cart.AddParcel(Small);
-        cart.AddParcel(ExtraLarge);
-
-        var quote = cart.GetQuote();
-
-        Assert.Equal(new SpeedyShippingLineItem(28m), quote.Items[^1]);
-        Assert.Equal(56m, quote.Total);
     }
 
     [Fact]

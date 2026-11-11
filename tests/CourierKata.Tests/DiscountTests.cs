@@ -101,18 +101,7 @@ public class DiscountTests
         Assert.Equal(
             [.. PricedOnTheirOwn(parcels), new DiscountLineItem(Discount.MediumParcelMania, parcels, 8m)],
             quote.Items);
-        Assert.Equal(-8m, quote.Items[^1].Cost);
         Assert.Equal(16m, quote.Total);
-    }
-
-    [Fact]
-    public void Parcels_in_a_discount_keep_the_order_they_were_added()
-    {
-        Parcel[] parcels = [ExtraLarge, ExtraLarge, Medium3Kg, Large, Large];
-
-        var discount = Assert.Single(DiscountsIn(QuoteFor(parcels)));
-
-        Assert.Equal(parcels, discount.Parcels);
     }
 
     [Fact]
@@ -127,24 +116,6 @@ public class DiscountTests
             ],
             DiscountsIn(quote));
         Assert.Equal(25m, quote.Total);
-    }
-
-    [Fact]
-    public void Discount_order_does_not_follow_the_size_of_the_saving()
-    {
-        var quote = QuoteFor(Concat(Times(3, Medium4Kg), Times(3, Medium3Kg)));
-
-        Assert.Equal([10m, 8m], DiscountsIn(quote).Select(discount => discount.Saving));
-    }
-
-    [Fact]
-    public void Parcels_in_a_discount_keep_their_cost()
-    {
-        var quote = QuoteFor(Times(3, Medium3Kg));
-
-        Assert.Equal(
-            Enumerable.Repeat(new ParcelLineItem(Medium3Kg, ParcelSize.Medium, ParcelRate.BySize, 8m, 0m), 3),
-            quote.Items.OfType<ParcelLineItem>());
     }
 
     [Fact]

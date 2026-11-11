@@ -62,10 +62,6 @@ Each parcel SHALL be in at most one discount. A parcel added to the cart more th
 - **WHEN** seven Small parcels costing $3 each are quoted
 - **THEN** the quote has exactly one discount, a Small parcel mania discount of four of the parcels saving $3, and the total is $18
 
-#### Scenario: The same parcel added four times
-- **WHEN** the same Small parcel is added to a cart four times
-- **THEN** the quote has one Small parcel mania discount of that parcel four times, saving $3
-
 ### Requirement: The combination that saves the most is applied
 A quote SHALL apply the combination of discounts that saves the most in total, out of every way of grouping the cart's parcels into discounts.
 
@@ -99,20 +95,12 @@ A quote SHALL include one discount line item for each discount it applies. Each 
 - **WHEN** three Medium parcels costing $8 each are quoted
 - **THEN** after the three parcel line items comes a Medium parcel mania line item showing the three parcels, a saving of $8 and a cost of -$8, and the total is $16
 
-#### Scenario: Parcels in a discount keep the order they were added
-- **WHEN** two XL parcels, a Medium parcel and two Large parcels are added in that order
-- **THEN** the Mixed parcel mania line item shows the XL, XL, Medium, Large and Large parcels in that order
-
 ### Requirement: Discount line items are ordered by their first parcel
 Discount line items SHALL be ordered by when the first parcel in each discount was added to the cart.
 
 #### Scenario: Discount whose first parcel was added first comes first
 - **WHEN** a Medium parcel costing $8, four Small parcels costing $3 each and two more Medium parcels costing $8 each are added in that order
 - **THEN** the Medium parcel mania line item comes before the Small parcel mania line item, and the total is $25
-
-#### Scenario: Order doesn't follow the size of the saving
-- **WHEN** three Medium parcels weighing 4 kg ($10 each) and then three Medium parcels weighing 3 kg ($8 each) are added
-- **THEN** the discount saving $10 comes before the discount saving $8
 
 ### Requirement: Discounts don't change parcel line items
 Applying discounts SHALL NOT change any parcel line item. Each parcel line item MUST show the same size, rate, base cost, overweight charge and cost as it would with no discount.

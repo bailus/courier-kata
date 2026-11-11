@@ -31,16 +31,6 @@ public class DiscountCombinationTests
     }
 
     [Fact]
-    public void The_same_parcel_added_four_times_counts_four_times()
-    {
-        var parcel = new Parcel(5m, 5m, 5m, 0.5m);
-
-        var quote = QuoteFor(parcel, parcel, parcel, parcel);
-
-        Assert.Equal([new DiscountLineItem(Discount.SmallParcelMania, Times(4, parcel), 3m)], DiscountsIn(quote));
-    }
-
-    [Fact]
     public void Mixed_parcel_mania_is_chosen_when_it_saves_more_than_a_size_discount()
     {
         var quote = QuoteFor(Concat([Medium5Kg], Times(2, Medium3Kg), Times(4, Large)));

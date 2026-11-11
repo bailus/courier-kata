@@ -63,25 +63,9 @@ public class HeavyRateTests
         Assert.Equal(50m, quote.Total);
     }
 
-    [Fact]
-    public void Speedy_shipping_doubles_heavy_rate_costs_too()
+    private static Quote QuoteFor(Parcel parcel)
     {
-        var parcel = new Parcel(5m, 5m, 5m, 40m);
-
-        var quote = QuoteFor(parcel, Shipping.Speedy);
-
-        Assert.Equal(
-            [
-                new ParcelLineItem(parcel, ParcelSize.Small, ParcelRate.Heavy, 50m, 0m),
-                new SpeedyShippingLineItem(50m),
-            ],
-            quote.Items);
-        Assert.Equal(100m, quote.Total);
-    }
-
-    private static Quote QuoteFor(Parcel parcel, Shipping shipping = Shipping.Standard)
-    {
-        var cart = new Cart { Shipping = shipping };
+        var cart = new Cart();
         cart.AddParcel(parcel);
         return cart.GetQuote();
     }

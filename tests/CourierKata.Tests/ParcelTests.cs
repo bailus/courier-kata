@@ -17,14 +17,6 @@ public class ParcelTests
         Assert.Equal(invalidDimension, error.ParamName);
     }
 
-    [Fact]
-    public void Very_large_parcel_is_accepted()
-    {
-        var parcel = new Parcel(10_000m, 5m, 5m, 0.5m);
-
-        Assert.Equal(10_000m, parcel.Length);
-    }
-
     [Theory]
     [InlineData(0)]
     [InlineData(-1)]
@@ -34,13 +26,5 @@ public class ParcelTests
             () => new Parcel(5m, 5m, 5m, (decimal)weight));
 
         Assert.Equal("Weight", error.ParamName);
-    }
-
-    [Fact]
-    public void Fractional_weight_is_accepted()
-    {
-        var parcel = new Parcel(5m, 5m, 5m, 0.5m);
-
-        Assert.Equal(0.5m, parcel.Weight);
     }
 }

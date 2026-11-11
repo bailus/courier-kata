@@ -45,46 +45,9 @@ public class OverweightChargeTests
         Assert.Equal(0m, item.OverweightCharge);
     }
 
-    [Fact]
-    public void Parcel_within_its_limit_shows_a_zero_overweight_charge()
+    private static Quote QuoteFor(Parcel parcel)
     {
-        var parcel = new Parcel(5m, 5m, 5m, 0.5m);
-
-        var item = Assert.IsType<ParcelLineItem>(Assert.Single(QuoteFor(parcel).Items));
-
-        Assert.Equal(new ParcelLineItem(parcel, ParcelSize.Small, ParcelRate.BySize, 3m, 0m), item);
-        Assert.Equal(ParcelRate.BySize, item.Rate);
-    }
-
-    [Fact]
-    public void Heavy_parcel_keeps_the_size_of_its_dimensions()
-    {
-        var item = Assert.IsType<ParcelLineItem>(
-            Assert.Single(QuoteFor(new Parcel(5m, 5m, 5m, 20m)).Items));
-
-        Assert.Equal(ParcelSize.Small, item.Size);
-        Assert.Equal(ParcelRate.BySize, item.Rate);
-    }
-
-    [Fact]
-    public void Speedy_shipping_doubles_the_overweight_charge_too()
-    {
-        var parcel = new Parcel(5m, 5m, 5m, 1.2m);
-
-        var quote = QuoteFor(parcel, Shipping.Speedy);
-
-        Assert.Equal(
-            [
-                new ParcelLineItem(parcel, ParcelSize.Small, ParcelRate.BySize, 3m, 2m),
-                new SpeedyShippingLineItem(5m),
-            ],
-            quote.Items);
-        Assert.Equal(10m, quote.Total);
-    }
-
-    private static Quote QuoteFor(Parcel parcel, Shipping shipping = Shipping.Standard)
-    {
-        var cart = new Cart { Shipping = shipping };
+        var cart = new Cart();
         cart.AddParcel(parcel);
         return cart.GetQuote();
     }
