@@ -10,8 +10,8 @@
 
 ## 2. Overweight charge (test first, starting with the brief's examples)
 
-- [ ] 2.1 Write a failing test in `OverweightChargeTests`: a Small parcel weighing 1.2 kg has base $3, overweight $2, cost $5 and quote total $5. Add the weight limits (`LimitOf(size)`) and the $2-per-part-kg charge using `Math.Ceiling` in `ParcelPricing`. Verify with `docker compose run --rm tests`.
-- [ ] 2.2 Add tests for these cases, implementing anything still missing:
+- [x] 2.1 Write a failing test in `OverweightChargeTests`: a Small parcel weighing 1.2 kg has base $3, overweight $2, cost $5 and quote total $5. Add the weight limits (`LimitOf(size)`) and the $2-per-part-kg charge using `Math.Ceiling` in `ParcelPricing`. Verify with `docker compose run --rm tests`.
+- [x] 2.2 Add tests for these cases, implementing anything still missing:
   - Medium 5 kg costs $12
   - Large 7 kg costs $17
   - XL 11 kg costs $27
@@ -19,8 +19,8 @@
   - a 5 x 5 x 5 cm parcel weighing 20 kg is still Small
 
   Verify with `docker compose run --rm tests`.
-- [ ] 2.3 Add a test that a Small 1.2 kg parcel with Speedy shipping gives a parcel item of $5, a speedy item of $5 and a total of $10. Verify with `docker compose run --rm tests`. No code change should be needed.
-- [ ] 2.4 Update `docs/assumptions.md`, then commit with the code:
+- [x] 2.3 Add a test that a Small 1.2 kg parcel with Speedy shipping gives a parcel item of $5, a speedy item of $5 and a total of $10. Verify with `docker compose run --rm tests`. No code change should be needed.
+- [x] 2.4 Update `docs/assumptions.md`, then commit with the code:
   - add: at the limit pays nothing
   - add: part-kilograms round up
   - add: weight doesn't change size
