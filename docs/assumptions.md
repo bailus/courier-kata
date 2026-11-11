@@ -61,11 +61,15 @@ same commit as the code that depends on them.
 
 - **Unclear:** "In all circumstances the cheapest option for sending each parcel
   should be selected" implies a choice between options.
-- **Assumed:** With size-only pricing, the only option is the smallest size the
-  parcel fits, which is also the cheapest because prices rise with size. No
-  general "compare every option" logic is built yet.
-- **Why:** This change covers step 1 only. A selector between competing options
-  belongs with the later rule (such as weight) that makes it necessary.
+- **Assumed:** The only option is the smallest size the parcel's dimensions
+  fit. It is also the cheapest, so no general "compare every option" logic is
+  built.
+- **Why:** Prices rise with size. Weight limits also rise with size, but each
+  step up adds more base price than its higher limit can save in overweight
+  charges: Small to Medium adds $5 but saves at most $4 (2 kg), Medium to Large
+  adds $7 but saves at most $6, and Large to XL adds $10 but saves at most $8.
+  So the smallest size is cheapest at every weight. A selector belongs with a
+  later rule that can make a larger option cheaper.
 
 ## Validation
 
@@ -160,3 +164,63 @@ same commit as the code that depends on them.
 - **Why:** C# enums accept any underlying integer, so an unchecked value would
   silently be treated as Standard. Failing early matches how `Parcel` rejects
   invalid dimensions.
+
+## Weight
+
+### Weight is required, positive and in kilograms
+
+- **Unclear:** The brief adds weight limits but doesn't say how a parcel's
+  weight is given, or what counts as a valid weight.
+- **Assumed:** `Parcel` takes a required `Weight` as `decimal` kilograms.
+  Fractional weights are allowed. Zero or negative weights throw
+  `ArgumentOutOfRangeException` naming `Weight`. There is no upper limit.
+- **Why:** The limits are in kilograms, and the examples use fractions
+  (1.2 kg). Making weight required rather than giving it a default means a
+  parcel can't skip the weight check, which is the loophole the change
+  closes. Rejecting zero or less matches how dimensions are validated.
+
+### Overweight charge is shown separately on the parcel's line item
+
+- **Unclear:** Whether the quote should show the overweight charge or fold it
+  into the parcel's cost.
+- **Assumed:** A parcel line item shows `BaseCost` (the size price) and
+  `OverweightCharge` separately. Its `Cost` is their sum. Parcels within their
+  limit show an `OverweightCharge` of $0.
+- **Why:** Customers can see why a parcel costs more than its size price.
+  Keeping the charge on the parcel's own line ties it to that parcel, and `Cost`
+  still means what the line costs. A $0 charge gives every parcel line the
+  same shape.
+
+### A parcel at its weight limit pays nothing extra
+
+- **Unclear:** Whether a parcel weighing exactly its size's limit (such as a
+  Small parcel at 1 kg) is over the limit.
+- **Assumed:** Only weight strictly above the limit is charged.
+- **Why:** The brief charges "over weight limit", and a parcel at the limit
+  isn't over it.
+
+### Each part of a kilogram over the limit is charged as a whole kilogram
+
+- **Unclear:** How weight that is part of a kilogram over the limit is charged.
+- **Assumed:** The weight over the limit is rounded up to the next whole
+  kilogram, at $2 each. 1.2 kg on a Small parcel is 0.2 kg over, so it pays $2.
+- **Why:** The brief says to charge $2 for each part-kg, and its example
+  (Small 1.2 kg costs $5) needs this rounding.
+
+### Weight doesn't change a parcel's size
+
+- **Unclear:** Whether a parcel over its weight limit moves up a size.
+- **Assumed:** Size is decided by dimensions alone. Weight only adds an
+  overweight charge on top of the size price.
+- **Why:** The brief's examples price heavy parcels at their size's price plus
+  the charge (Medium 5 kg costs $8 + $4). Moving up a size is never cheaper
+  anyway (see "Cheapest option is the smallest size that fits").
+
+### Speedy shipping doubles overweight charges too
+
+- **Unclear:** Whether the speedy charge covers the overweight charge or only
+  the size price.
+- **Assumed:** The speedy charge is the sum of the parcel costs, including
+  their overweight charges.
+- **Why:** The brief's example (Small 1.2 kg with Speedy costs $10) needs it,
+  and it keeps "speedy doubles the order cost" true.

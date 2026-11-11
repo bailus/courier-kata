@@ -10,7 +10,7 @@ public class ParcelCostTests
     public void Each_size_has_a_fixed_cost(int largestDimension, ParcelSize expectedSize, int expectedCost)
     {
         var cart = new Cart();
-        cart.AddParcel(new Parcel(largestDimension, 1m, 1m));
+        cart.AddParcel(new Parcel(largestDimension, 1m, 1m, 0.5m));
 
         var item = Assert.IsType<ParcelLineItem>(Assert.Single(cart.GetQuote().Items));
 

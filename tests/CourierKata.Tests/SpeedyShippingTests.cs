@@ -2,10 +2,10 @@ namespace CourierKata.Tests;
 
 public class SpeedyShippingTests
 {
-    private static readonly Parcel Small = new(5m, 5m, 5m);
-    private static readonly Parcel Medium = new(20m, 5m, 5m);
-    private static readonly Parcel Large = new(70m, 5m, 5m);
-    private static readonly Parcel ExtraLarge = new(150m, 5m, 5m);
+    private static readonly Parcel Small = new(5m, 5m, 5m, 0.5m);
+    private static readonly Parcel Medium = new(20m, 5m, 5m, 0.5m);
+    private static readonly Parcel Large = new(70m, 5m, 5m, 0.5m);
+    private static readonly Parcel ExtraLarge = new(150m, 5m, 5m, 0.5m);
 
     [Fact]
     public void Speedy_shipping_is_listed_separately_and_doubles_the_total()
@@ -16,10 +16,10 @@ public class SpeedyShippingTests
 
         Assert.Equal(
             [
-                new ParcelLineItem(Small, ParcelSize.Small, 3m),
-                new ParcelLineItem(Medium, ParcelSize.Medium, 8m),
-                new ParcelLineItem(Large, ParcelSize.Large, 15m),
-                new ParcelLineItem(ExtraLarge, ParcelSize.ExtraLarge, 25m),
+                new ParcelLineItem(Small, ParcelSize.Small, 3m, 0m),
+                new ParcelLineItem(Medium, ParcelSize.Medium, 8m, 0m),
+                new ParcelLineItem(Large, ParcelSize.Large, 15m, 0m),
+                new ParcelLineItem(ExtraLarge, ParcelSize.ExtraLarge, 25m, 0m),
                 new SpeedyShippingLineItem(51m),
             ],
             quote.Items);
@@ -31,7 +31,7 @@ public class SpeedyShippingTests
     {
         var quote = CartWith(Shipping.Standard, Small).GetQuote();
 
-        Assert.Equal([new ParcelLineItem(Small, ParcelSize.Small, 3m)], quote.Items);
+        Assert.Equal([new ParcelLineItem(Small, ParcelSize.Small, 3m, 0m)], quote.Items);
         Assert.Equal(3m, quote.Total);
     }
 
@@ -51,8 +51,8 @@ public class SpeedyShippingTests
 
         Assert.Equal(
             [
-                new ParcelLineItem(Medium, ParcelSize.Medium, 8m),
-                new ParcelLineItem(Small, ParcelSize.Small, 3m),
+                new ParcelLineItem(Medium, ParcelSize.Medium, 8m, 0m),
+                new ParcelLineItem(Small, ParcelSize.Small, 3m, 0m),
                 new SpeedyShippingLineItem(11m),
             ],
             quote.Items);

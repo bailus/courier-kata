@@ -1,8 +1,8 @@
 namespace CourierKata;
 
-/// <summary>A parcel to deliver, with its dimensions in centimetres.</summary>
-/// <exception cref="ArgumentOutOfRangeException">A dimension is zero or negative.</exception>
-public sealed record Parcel(decimal Length, decimal Width, decimal Height)
+/// <summary>A parcel to deliver, with its dimensions in centimetres and its weight in kilograms.</summary>
+/// <exception cref="ArgumentOutOfRangeException">A dimension or the weight is zero or negative.</exception>
+public sealed record Parcel(decimal Length, decimal Width, decimal Height, decimal Weight)
 {
     /// <summary>Length in centimetres.</summary>
     public decimal Length { get; } = Positive(Length, nameof(Length));
@@ -13,9 +13,12 @@ public sealed record Parcel(decimal Length, decimal Width, decimal Height)
     /// <summary>Height in centimetres.</summary>
     public decimal Height { get; } = Positive(Height, nameof(Height));
 
-    private static decimal Positive(decimal value, string dimension)
+    /// <summary>Weight in kilograms.</summary>
+    public decimal Weight { get; } = Positive(Weight, nameof(Weight));
+
+    private static decimal Positive(decimal value, string name)
     {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(value, dimension);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(value, name);
         return value;
     }
 }

@@ -6,10 +6,12 @@ namespace CourierKata;
 /// </summary>
 public abstract record LineItem
 {
-    private protected LineItem(decimal cost) => Cost = cost;
+    private protected LineItem()
+    {
+    }
 
     /// <summary>Cost in dollars.</summary>
-    public decimal Cost { get; }
+    public abstract decimal Cost { get; }
 
     // Records always have a protected copy constructor, so another assembly
     // could still derive from LineItem through it. An internal abstract member
