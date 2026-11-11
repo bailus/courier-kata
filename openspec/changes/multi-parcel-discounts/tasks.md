@@ -12,8 +12,8 @@
 
 ## 2. Choosing discounts (test first, starting with the brief's example)
 
-- [ ] 2.1 Write a failing test in `DiscountCombinationTests` for "Parcels are grouped with others of similar cost": three Medium parcels weighing 3 kg, then three weighing 4 kg, give the six unchanged parcel items, then a Medium parcel mania item of the three 3 kg parcels saving $8, then one of the three 4 kg parcels saving $10, and a total of $36. Add the internal static `DiscountSelection.Choose` as described in design.md: parcels sorted most expensive first, the 60-state walk, more saving and then fewer Mixed discounts winning, groups rebuilt with their parcels in cart order in a read-only list, and items ordered by each group's first parcel. Call it from `Cart.GetQuote()` so the discount items come after the parcel items, leaving the speedy charge as it is for now. Verify with `docker compose run --rm tests`.
-- [ ] 2.2 Add tests in `DiscountTests` for the scenarios under "Each discount needs a full group of parcels", "The cheapest parcel in a group is free" and "A parcel joins discounts by its size", implementing anything still missing:
+- [x] 2.1 Write a failing test in `DiscountCombinationTests` for "Parcels are grouped with others of similar cost": three Medium parcels weighing 3 kg, then three weighing 4 kg, give the six unchanged parcel items, then a Medium parcel mania item of the three 3 kg parcels saving $8, then one of the three 4 kg parcels saving $10, and a total of $36. Add the internal static `DiscountSelection.Choose` as described in design.md: parcels sorted most expensive first, the 60-state walk, more saving and then fewer Mixed discounts winning, groups rebuilt with their parcels in cart order in a read-only list, and items ordered by each group's first parcel. Call it from `Cart.GetQuote()` so the discount items come after the parcel items, leaving the speedy charge as it is for now. Verify with `docker compose run --rm tests`.
+- [x] 2.2 Add tests in `DiscountTests` for the scenarios under "Each discount needs a full group of parcels", "The cheapest parcel in a group is free" and "A parcel joins discounts by its size", implementing anything still missing:
   - four Small parcels at $3 give Small parcel mania of all four, saving $3, total $9
   - three Medium parcels weighing 3 kg give Medium parcel mania saving $8, total $16
   - five Large parcels give Mixed parcel mania saving $15, total $60
@@ -26,7 +26,7 @@
   - carts of four Large parcels and of four XL parcels have no discount item
 
   Verify with `docker compose run --rm tests`.
-- [ ] 2.3 Add tests in `DiscountCombinationTests` for the scenarios under "Each parcel is in at most one discount", "The combination that saves the most is applied" and "Equal savings prefer size discounts", implementing anything still missing:
+- [x] 2.3 Add tests in `DiscountCombinationTests` for the scenarios under "Each parcel is in at most one discount", "The combination that saves the most is applied" and "Equal savings prefer size discounts", implementing anything still missing:
   - seven Small parcels at $3 give exactly one discount, Small parcel mania saving $3, total $18
   - the same Small parcel added four times gives Small parcel mania of that parcel four times, saving $3
   - a Medium parcel weighing 5 kg, two weighing 3 kg and four Large parcels give only Mixed parcel mania of the 5 kg Medium and the four Large parcels, saving $12, total $76
@@ -35,8 +35,8 @@
   - 1,000 Small parcels at $3 give 250 Small parcel mania discounts and a total of $2,250
 
   Verify with `docker compose run --rm tests`.
-- [ ] 2.4 Add a property test in `DiscountCombinationTests` for "No other grouping saves more". Write a test-only exhaustive search over every way of grouping a cart's parcels. Quote a few hundred carts of 0 to 10 parcels from a seeded `Random`. Draw the parcels from a fixed set that includes overweight parcels, Heavy-rate parcels and equal costs across sizes, for example Small at $3, $5, $11, $15 and $50 (Heavy), Medium at $8, $10, $12 and $50 (Heavy), Large at $15 and $17, and XL at $25. For each cart, check that every discount is valid: it has the right number of parcels that can join it, its saving is its cheapest parcel's cost, and no parcel is used more often than it was added. Also check that the total saving and the number of Mixed discounts match the exhaustive search. Verify with `docker compose run --rm tests`.
-- [ ] 2.5 Add tests in `DiscountTests` for the scenarios under "Each discount is listed as its own line item", "Discount line items are ordered by their first parcel" and "Discounts don't change parcel line items", implementing anything still missing:
+- [x] 2.4 Add a property test in `DiscountCombinationTests` for "No other grouping saves more". Write a test-only exhaustive search over every way of grouping a cart's parcels. Quote a few hundred carts of 0 to 10 parcels from a seeded `Random`. Draw the parcels from a fixed set that includes overweight parcels, Heavy-rate parcels and equal costs across sizes, for example Small at $3, $5, $11, $15 and $50 (Heavy), Medium at $8, $10, $12 and $50 (Heavy), Large at $15 and $17, and XL at $25. For each cart, check that every discount is valid: it has the right number of parcels that can join it, its saving is its cheapest parcel's cost, and no parcel is used more often than it was added. Also check that the total saving and the number of Mixed discounts match the exhaustive search. Verify with `docker compose run --rm tests`.
+- [x] 2.5 Add tests in `DiscountTests` for the scenarios under "Each discount is listed as its own line item", "Discount line items are ordered by their first parcel" and "Discounts don't change parcel line items", implementing anything still missing:
   - three Medium parcels at $8 give three parcel items, then a Medium parcel mania item of the three parcels with a saving of $8 and a cost of -$8, total $16
   - two XL, a Medium and two Large parcels, added in that order, give a Mixed parcel mania item listing XL, XL, Medium, Large and Large in that order
   - a Medium parcel at $8, four Small parcels, then two more Medium parcels at $8 put the Medium parcel mania item before the Small parcel mania item, total $25
@@ -45,7 +45,7 @@
   - a discount's `Parcels` can't be modified through the returned list
 
   Verify with `docker compose run --rm tests`.
-- [ ] 2.6 Add these entries to `docs/assumptions.md`:
+- [x] 2.6 Add these entries to `docs/assumptions.md`:
   - "every Nth parcel" means any group of N, whatever order the parcels were added in
   - Mixed parcel mania takes any 5 parcels, including 5 of the same size
   - a discount saves the free parcel's whole cost, including any overweight charge, at whichever rate it's charged
