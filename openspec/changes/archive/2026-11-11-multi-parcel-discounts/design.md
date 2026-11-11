@@ -107,7 +107,7 @@ return          Quote(items, items.Sum(Cost))
 - Each spec scenario gets a test, with expected discount items written out in full, for example `new DiscountLineItem(Discount.MediumParcelMania, [medium3Kg, medium3Kg, medium3Kg], 8m)`.
 - A property test checks "every time". It quotes a few hundred seeded random carts of up to 10 parcels, drawn from Small, Medium, Large and XL parcels at various weights, including overweight and Heavy-rate ones. For each cart, the discounts must be valid: each group has the right number of parcels that can join it, its saving is its cheapest parcel's cost, and no parcel is used more often than it was added. Their total saving and number of Mixed discounts must also match a test-only search over every grouping.
 - A cart of 1,000 Small parcels gets 250 Small parcel mania discounts, which shows the search doesn't blow up.
-- Test classes: `DiscountLineItemTests` for the record, `DiscountTests` for the discount rules and how they're listed, `DiscountCombinationTests` for choosing the best combination, and new cases in `SpeedyShippingTests`.
+- Test classes: `DiscountLineItemTests` for the record, `DiscountTests` for the discount rules and how they're listed, `DiscountCombinationTests` for choosing the best combination, `DiscountPropertyTests` for the check against every grouping, and new cases in `SpeedyShippingTests`.
 
 ### Assumptions log
 New entries in `docs/assumptions.md`:
