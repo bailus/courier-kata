@@ -29,7 +29,7 @@
 
 ## 3. Final checks
 
-- [ ] 3.1 Check the public surface: it should be unchanged apart from `Parcel.Weight` and the `ParcelLineItem` shape. Check that every scenario in `specs/parcel-pricing/spec.md` has a matching test. Verify that `docker compose run --rm tests` passes with zero warnings.
+- [x] 3.1 Check the public surface: it should be unchanged apart from `Parcel.Weight` and the `ParcelLineItem` shape. Check that every scenario in `specs/parcel-pricing/spec.md` has a matching test. Verify that `docker compose run --rm tests` passes with zero warnings.
 
 ## Workflow follow-up
 
