@@ -2,13 +2,13 @@
 
 ## 1. Discount line item (no behaviour change)
 
-- [ ] 1.1 Write failing tests in `DiscountLineItemTests`:
+- [x] 1.1 Write failing tests in `DiscountLineItemTests`:
   - `Cost` is minus `Saving` (a saving of $8 costs -$8)
   - two items with the same discount, equal parcels in the same order and the same saving are equal and have equal hash codes
   - items that differ in discount, parcels, parcel order or saving are not equal
 
   Add the public enum `Discount { SmallParcelMania, MediumParcelMania, MixedParcelMania }` and `sealed record DiscountLineItem(Discount Discount, IReadOnlyList<Parcel> Parcels, decimal Saving) : LineItem`, with XML doc comments, `Cost => -Saving`, `SealHierarchy()`, and `Equals`/`GetHashCode` that compare `Parcels` item by item (see design.md). Update `LineItem`'s doc comment to list all three kinds. Verify that `docker compose run --rm tests` passes with zero warnings.
-- [ ] 1.2 Commit the enum, the record and their tests, and verify the working tree is clean afterwards.
+- [x] 1.2 Commit the enum, the record and their tests, and verify the working tree is clean afterwards.
 
 ## 2. Choosing discounts (test first, starting with the brief's example)
 
