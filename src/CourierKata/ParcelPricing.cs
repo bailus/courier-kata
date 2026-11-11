@@ -1,14 +1,34 @@
 namespace CourierKata;
 
-/// <summary>The rules that decide what size a parcel is charged at and what it costs.</summary>
+/// <summary>The rules that decide what size a parcel is, which rate it is charged at, and what it costs.</summary>
 internal static class ParcelPricing
 {
     private const decimal OverweightChargePerKilogram = 2m;
 
+    private const decimal HeavyBaseCost = 50m;
+    private const decimal HeavyWeightLimit = 50m;
+    private const decimal HeavyOverweightChargePerKilogram = 1m;
+
+    /// <summary>Prices the parcel at its size rate and at the Heavy rate, and keeps the cheaper. A tie keeps the size rate.</summary>
     public static ParcelLineItem Price(Parcel parcel)
     {
         var size = Classify(parcel);
-        return new ParcelLineItem(parcel, size, PriceOf(size), OverweightCharge(parcel.Weight, size));
+
+        var bySize = new ParcelLineItem(
+            parcel,
+            size,
+            ParcelRate.BySize,
+            PriceOf(size),
+            OverweightCharge(parcel.Weight, WeightLimitOf(size), OverweightChargePerKilogram));
+
+        var heavy = new ParcelLineItem(
+            parcel,
+            size,
+            ParcelRate.Heavy,
+            HeavyBaseCost,
+            OverweightCharge(parcel.Weight, HeavyWeightLimit, HeavyOverweightChargePerKilogram));
+
+        return heavy.Cost < bySize.Cost ? heavy : bySize;
     }
 
     private static ParcelSize Classify(Parcel parcel)
@@ -44,9 +64,9 @@ internal static class ParcelPricing
     };
 
     /// <summary>Charges for each kilogram over the limit, counting any part of a kilogram as a whole one.</summary>
-    private static decimal OverweightCharge(decimal weight, ParcelSize size)
+    private static decimal OverweightCharge(decimal weight, decimal limit, decimal chargePerKilogram)
     {
-        var over = weight - WeightLimitOf(size);
-        return over > 0m ? OverweightChargePerKilogram * Math.Ceiling(over) : 0m;
+        var over = weight - limit;
+        return over > 0m ? chargePerKilogram * Math.Ceiling(over) : 0m;
     }
 }

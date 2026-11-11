@@ -9,7 +9,7 @@ public class OverweightChargeTests
 
         var quote = QuoteFor(parcel);
 
-        Assert.Equal([new ParcelLineItem(parcel, ParcelSize.Small, 3m, 2m)], quote.Items);
+        Assert.Equal([new ParcelLineItem(parcel, ParcelSize.Small, ParcelRate.BySize, 3m, 2m)], quote.Items);
         Assert.Equal(5m, quote.Items[0].Cost);
         Assert.Equal(5m, quote.Total);
     }
@@ -26,7 +26,7 @@ public class OverweightChargeTests
         var quote = QuoteFor(parcel);
 
         Assert.Equal(
-            [new ParcelLineItem(parcel, expectedSize, expectedBaseCost, expectedOverweightCharge)],
+            [new ParcelLineItem(parcel, expectedSize, ParcelRate.BySize, expectedBaseCost, expectedOverweightCharge)],
             quote.Items);
         Assert.Equal(expectedBaseCost + expectedOverweightCharge, quote.Total);
     }
@@ -50,7 +50,10 @@ public class OverweightChargeTests
     {
         var parcel = new Parcel(5m, 5m, 5m, 0.5m);
 
-        Assert.Equal([new ParcelLineItem(parcel, ParcelSize.Small, 3m, 0m)], QuoteFor(parcel).Items);
+        var item = Assert.IsType<ParcelLineItem>(Assert.Single(QuoteFor(parcel).Items));
+
+        Assert.Equal(new ParcelLineItem(parcel, ParcelSize.Small, ParcelRate.BySize, 3m, 0m), item);
+        Assert.Equal(ParcelRate.BySize, item.Rate);
     }
 
     [Fact]
@@ -60,6 +63,7 @@ public class OverweightChargeTests
             Assert.Single(QuoteFor(new Parcel(5m, 5m, 5m, 20m)).Items));
 
         Assert.Equal(ParcelSize.Small, item.Size);
+        Assert.Equal(ParcelRate.BySize, item.Rate);
     }
 
     [Fact]
@@ -71,7 +75,7 @@ public class OverweightChargeTests
 
         Assert.Equal(
             [
-                new ParcelLineItem(parcel, ParcelSize.Small, 3m, 2m),
+                new ParcelLineItem(parcel, ParcelSize.Small, ParcelRate.BySize, 3m, 2m),
                 new SpeedyShippingLineItem(5m),
             ],
             quote.Items);

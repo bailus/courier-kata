@@ -7,7 +7,7 @@ public class ParcelLineItemTests
     [Fact]
     public void Cost_is_the_base_cost_plus_the_overweight_charge()
     {
-        var item = new ParcelLineItem(Small, ParcelSize.Small, 3m, 2m);
+        var item = new ParcelLineItem(Small, ParcelSize.Small, ParcelRate.BySize, 3m, 2m);
 
         Assert.Equal(5m, item.Cost);
     }
@@ -15,7 +15,7 @@ public class ParcelLineItemTests
     [Fact]
     public void Cost_stays_consistent_when_a_copy_changes_the_overweight_charge()
     {
-        var item = new ParcelLineItem(Small, ParcelSize.Small, 3m, 0m);
+        var item = new ParcelLineItem(Small, ParcelSize.Small, ParcelRate.BySize, 3m, 0m);
 
         var heavier = item with { OverweightCharge = 4m };
 
