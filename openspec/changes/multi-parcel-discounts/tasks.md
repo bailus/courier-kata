@@ -68,7 +68,7 @@
 
 ## 4. Final checks
 
-- [ ] 4.1 Check the public surface: it should be unchanged apart from the new `Discount` enum and `DiscountLineItem`. Check that every scenario in `specs/parcel-discounts/spec.md` and `specs/parcel-pricing/spec.md` has a matching test. Verify that `docker compose run --rm tests` passes with zero warnings.
+- [x] 4.1 Check the public surface: it should be unchanged apart from the new `Discount` enum and `DiscountLineItem`. Check that every scenario in `specs/parcel-discounts/spec.md` and `specs/parcel-pricing/spec.md` has a matching test. Verify that `docker compose run --rm tests` passes with zero warnings.
 
 ## Workflow follow-up
 
