@@ -2,7 +2,7 @@ namespace CourierKata;
 
 /// <summary>
 /// One line of a quote and its cost in dollars. The kinds of line item are fixed:
-/// <see cref="ParcelLineItem"/> and <see cref="SpeedyShippingLineItem"/>.
+/// <see cref="ParcelLineItem"/>, <see cref="DiscountLineItem"/> and <see cref="SpeedyShippingLineItem"/>.
 /// </summary>
 public abstract record LineItem
 {

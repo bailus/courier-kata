@@ -67,6 +67,52 @@ public class SpeedyShippingTests
         Assert.Equal(0m, quote.Total);
     }
 
+    [Fact]
+    public void Speedy_shipping_applies_after_discounts()
+    {
+        var medium3Kg = new Parcel(20m, 5m, 5m, 3m);
+        var medium4Kg = new Parcel(20m, 5m, 5m, 4m);
+
+        var quote = CartWith(Shipping.Speedy, medium3Kg, medium3Kg, medium3Kg, medium4Kg, medium4Kg, medium4Kg).GetQuote();
+
+        Assert.Equal(54m, quote.Items.OfType<ParcelLineItem>().Sum(item => item.Cost));
+        Assert.Equal([8m, 10m], quote.Items.OfType<DiscountLineItem>().Select(item => item.Saving));
+        Assert.Equal(new SpeedyShippingLineItem(36m), quote.Items[^1]);
+        Assert.Equal(72m, quote.Total);
+    }
+
+    [Fact]
+    public void Discount_items_come_between_the_parcel_items_and_speedy_shipping()
+    {
+        var medium = new Parcel(20m, 5m, 5m, 3m);
+        var item = new ParcelLineItem(medium, ParcelSize.Medium, ParcelRate.BySize, 8m, 0m);
+
+        var quote = CartWith(Shipping.Speedy, medium, medium, medium).GetQuote();
+
+        Assert.Equal(
+            [
+                item,
+                item,
+                item,
+                new DiscountLineItem(Discount.MediumParcelMania, [medium, medium, medium], 8m),
+                new SpeedyShippingLineItem(16m),
+            ],
+            quote.Items);
+        Assert.Equal(32m, quote.Total);
+    }
+
+    [Fact]
+    public void Discounts_are_unaffected_by_speedy_shipping()
+    {
+        var medium = new Parcel(20m, 5m, 5m, 3m);
+
+        var standard = CartWith(Shipping.Standard, medium, medium, medium).GetQuote();
+        var speedy = CartWith(Shipping.Speedy, medium, medium, medium).GetQuote();
+
+        Assert.Single(standard.Items.OfType<DiscountLineItem>());
+        Assert.Equal(standard.Items.OfType<DiscountLineItem>(), speedy.Items.OfType<DiscountLineItem>());
+    }
+
     private static Cart CartWith(Shipping shipping, params Parcel[] parcels)
     {
         var cart = new Cart { Shipping = shipping };

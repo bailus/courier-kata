@@ -28,15 +28,20 @@ public sealed class Cart
         _parcels.Add(parcel);
     }
 
-    /// <summary>Prices every parcel in the cart, followed by speedy shipping when it is selected.</summary>
+    /// <summary>
+    /// Prices every parcel in the cart, followed by the discounts that save the most, then speedy
+    /// shipping when it is selected.
+    /// </summary>
     public Quote GetQuote()
     {
         var parcelItems = _parcels.Select(ParcelPricing.Price).ToList();
         var items = new List<LineItem>(parcelItems);
+        items.AddRange(DiscountSelection.Choose(parcelItems));
 
         if (Shipping == Shipping.Speedy)
         {
-            items.Add(new SpeedyShippingLineItem(parcelItems.Sum(item => item.Cost)));
+            // Speedy applies after discounts: it doubles the parcel costs less the savings.
+            items.Add(new SpeedyShippingLineItem(items.Sum(item => item.Cost)));
         }
 
         return new Quote(items.AsReadOnly(), items.Sum(item => item.Cost));

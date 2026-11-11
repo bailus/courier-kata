@@ -109,23 +109,25 @@ same commit as the code that depends on them.
 
 ## Speedy shipping
 
-### Speedy charge equals the parcel subtotal
+### Speedy charge equals the discounted parcel subtotal
 
 - **Unclear:** "Speedy shipping doubles the cost of the entire order" while
   also being "listed as a separate item" and not changing parcel prices.
 - **Assumed:** The speedy shipping line item costs the sum of the parcel
-  line-item costs. The total is still the sum of every line item, so it
-  doubles.
+  line-item costs less any discount savings, which is the sum of every line
+  item before it. The total is still the sum of every line item, so the
+  discounted order doubles.
 - **Why:** This is the only reading that doubles the total, keeps parcel costs
   unchanged and shows speedy as its own item. It matches the brief's example
-  ($51 of parcels, $51 speedy, $102 total). Only parcel costs are doubled for
-  now; how speedy combines with later rules such as discounts is left to the
-  change that adds them.
+  ($51 of parcels, $51 speedy, $102 total). The discounts brief says "speedy
+  shipping applies after discounts are taken into account", so savings come
+  off before speedy doubles the order.
 
 ### Speedy item comes last
 
 - **Unclear:** Where the speedy item appears among the line items.
-- **Assumed:** It comes after all the parcel line items, and appears once.
+- **Assumed:** It comes after all the parcel and discount line items, and
+  appears once.
 - **Why:** Its cost depends on all the parcels, and the brief's example lists
   it after them.
 
@@ -273,3 +275,68 @@ same commit as the code that depends on them.
 - **Assumed:** Yes. The speedy charge is the sum of the parcel costs, whatever
   rate each is charged at.
 - **Why:** It keeps "speedy doubles the order cost" true, and needs no change.
+
+## Multi-parcel discounts
+
+### "Every Nth parcel" means any group of N
+
+- **Unclear:** "Every 4th small parcel in an order is free" could mean the 4th,
+  8th, ... parcel added, while "the cheapest parcel is the free one" says
+  otherwise.
+- **Assumed:** A discount is any group of 4 Small, 3 Medium or 5 parcels, and
+  the cheapest in the group is free. The order parcels were added in doesn't
+  matter.
+- **Why:** The brief's example groups the three $8 parcels and the three $10
+  parcels together, which only works if groups can be any parcels.
+
+### Mixed parcel mania takes any 5 parcels
+
+- **Unclear:** Whether a "mixed" group needs parcels of different sizes.
+- **Assumed:** Any 5 parcels qualify, including 5 of the same size.
+- **Why:** The brief says "every 5th parcel" with no size condition.
+
+### A discount saves the free parcel's whole cost
+
+- **Unclear:** Whether the saving is the size's price or the parcel's cost.
+- **Assumed:** It's the free parcel's cost, including any overweight charge,
+  at whichever rate it is charged.
+- **Why:** The brief's example saves $10 on Medium parcels, which cost $8 plus
+  a $2 overweight charge.
+
+### Heavy-rate parcels join discounts by their size
+
+- **Unclear:** Whether a parcel charged at the Heavy rate counts as Small or
+  Medium for Small and Medium parcel mania, or only for Mixed.
+- **Assumed:** It joins by its size. A 40 kg parcel measuring 5 x 5 x 5 cm is
+  Small, so four of them save $50.
+- **Why:** The user chose this. Size stays decided by dimensions alone, as its
+  line item shows, and it never saves the customer less.
+
+### A parcel added more than once counts each time
+
+- **Unclear:** Whether the same parcel added twice can be in two discounts.
+- **Assumed:** It counts once for each time it was added, and each copy can be
+  in a different discount.
+- **Why:** The cart already quotes it once per time it was added.
+
+### Each discount is its own line item
+
+- **Unclear:** How a discount appears in the output ("-$2").
+- **Assumed:** One `DiscountLineItem` per discount applied, showing the
+  discount, its parcels in cart order and a positive `Saving`. Its `Cost` is
+  minus the saving, so the total is still the sum of the line items. Discount
+  items come after the parcel items and before speedy shipping, ordered by
+  when each discount's first parcel was added.
+- **Why:** The brief lists discounts separately ("1st discount", "2nd
+  discount"), like speedy shipping, and the library has no text output.
+  Ordering by first parcel follows how parcel items are ordered.
+
+### Equal savings prefer fewer Mixed discounts
+
+- **Unclear:** Which combination is used when several save the same, such as
+  five $3 Small parcels as Small parcel mania or as Mixed parcel mania.
+- **Assumed:** The one with the fewest Mixed parcel mania discounts. Any tie
+  left after that is settled by a fixed search order, so the same cart always
+  gets the same discounts.
+- **Why:** The size discounts are the more specific offers the customer
+  qualified for, and quotes must be repeatable.
