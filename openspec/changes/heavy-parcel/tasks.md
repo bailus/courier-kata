@@ -7,8 +7,8 @@
 
 ## 2. Heavy rate and choosing the cheaper rate (test first, starting with the user's examples)
 
-- [ ] 2.1 Write failing tests in `HeavyRateTests`: a 5 x 5 x 5 cm parcel weighing 40 kg and a 150 x 5 x 5 cm parcel weighing 40 kg each have a quote total of $50, keep their size (Small, XL), and are charged at `ParcelRate.Heavy` with a base cost of $50 and an overweight charge of $0. Make the overweight helper in `ParcelPricing` take the limit and per-kg rate, add the Heavy constants ($50, 50 kg, $1/kg), and pick Heavy only when it is strictly cheaper. Verify with `docker compose run --rm tests`.
-- [ ] 2.2 Add tests for these spec scenarios, implementing anything still missing:
+- [x] 2.1 Write failing tests in `HeavyRateTests`: a 5 x 5 x 5 cm parcel weighing 40 kg and a 150 x 5 x 5 cm parcel weighing 40 kg each have a quote total of $50, keep their size (Small, XL), and are charged at `ParcelRate.Heavy` with a base cost of $50 and an overweight charge of $0. Make the overweight helper in `ParcelPricing` take the limit and per-kg rate, add the Heavy constants ($50, 50 kg, $1/kg), and pick Heavy only when it is strictly cheaper. Verify with `docker compose run --rm tests`.
+- [x] 2.2 Add tests for these spec scenarios, implementing anything still missing:
   - 60 kg costs $50 + $10
   - 50.2 kg costs $50 + $1
   - exactly 50 kg costs $50 + $0
@@ -18,8 +18,8 @@
   - 20 kg Small is still Small and charged at the size rate
 
   Verify with `docker compose run --rm tests`.
-- [ ] 2.3 Add a test that a 40 kg 5 x 5 x 5 cm parcel with Speedy shipping gives a parcel item of $50, a speedy item of $50 and a total of $100. No code change should be needed. Verify with `docker compose run --rm tests`.
-- [ ] 2.4 Update `docs/assumptions.md`, then commit with the code:
+- [x] 2.3 Add a test that a 40 kg 5 x 5 x 5 cm parcel with Speedy shipping gives a parcel item of $50, a speedy item of $50 and a total of $100. No code change should be needed. Verify with `docker compose run --rm tests`.
+- [x] 2.4 Update `docs/assumptions.md`, then commit with the code:
   - add: any parcel can use the Heavy rate, whatever its dimensions
   - add: the cheaper rate is chosen, and a tie goes to the size rate
   - add: exactly 50 kg pays nothing extra, and part-kilograms over 50 kg round up at $1 each

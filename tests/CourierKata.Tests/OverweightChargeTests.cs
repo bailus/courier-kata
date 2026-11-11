@@ -63,6 +63,7 @@ public class OverweightChargeTests
             Assert.Single(QuoteFor(new Parcel(5m, 5m, 5m, 20m)).Items));
 
         Assert.Equal(ParcelSize.Small, item.Size);
+        Assert.Equal(ParcelRate.BySize, item.Rate);
     }
 
     [Fact]

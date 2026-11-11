@@ -57,19 +57,19 @@ same commit as the code that depends on them.
 - **Why:** The brief only uses `$` and has no multi-currency requirement, so a
   `Money` type would add nothing yet. `decimal` keeps amounts exact.
 
-### Cheapest option is the smallest size that fits
+### Cheapest option is the size rate or the Heavy rate, whichever is less
 
 - **Unclear:** "In all circumstances the cheapest option for sending each parcel
   should be selected" implies a choice between options.
-- **Assumed:** The only option is the smallest size the parcel's dimensions
-  fit. It is also the cheapest, so no general "compare every option" logic is
-  built.
-- **Why:** Prices rise with size. Weight limits also rise with size, but each
-  step up adds more base price than its higher limit can save in overweight
+- **Assumed:** Each parcel is priced at its size rate (the smallest size its
+  dimensions fit, plus that size's overweight charge) and at the Heavy rate,
+  and is charged at the cheaper. Larger sizes are never compared.
+- **Why:** Among sizes, the smallest that fits is always cheapest. Each step up
+  adds more base price than its higher weight limit can save in overweight
   charges: Small to Medium adds $5 but saves at most $4 (2 kg), Medium to Large
   adds $7 but saves at most $6, and Large to XL adds $10 but saves at most $8.
-  So the smallest size is cheapest at every weight. A selector belongs with a
-  later rule that can make a larger option cheaper.
+  The Heavy rate is different: its flat $50 becomes cheaper than the size rate
+  from just over 22 kg (XL) to 24 kg (Small and Medium).
 
 ## Validation
 
@@ -237,3 +237,39 @@ same commit as the code that depends on them.
 - **Why:** Keeping both facts means neither is lost. A later rule that groups
   parcels by size or by type can choose which one it needs, and the rule that
   weight doesn't change size still holds.
+
+### Any parcel can use the Heavy rate
+
+- **Unclear:** Whether the Heavy rate is limited to certain dimensions or
+  weights.
+- **Assumed:** Every parcel is priced at the Heavy rate as well as its size
+  rate, whatever its dimensions or weight. It's only used when cheaper.
+- **Why:** The examples charge $50 for 40 kg parcels with both Small and XL
+  dimensions, and 40 kg is under Heavy's 50 kg limit, so Heavy can't need a
+  minimum weight or a size.
+
+### A tie goes to the size rate
+
+- **Unclear:** Which rate is used when both cost the same. This only happens
+  for Medium parcels over 23 kg up to 24 kg, which cost $50 either way.
+- **Assumed:** The parcel is charged at its size rate.
+- **Why:** The price is the same, and Heavy exists to cut excessive overweight
+  charges, so it's only used when it actually saves money.
+
+### Heavy overweight charge matches the size rate's rules
+
+- **Unclear:** The brief says "$50 up to over 50 kg", and doesn't say how part
+  of a kilogram over 50 kg is charged.
+- **Assumed:** A parcel at exactly 50 kg pays $50 with no extra charge. Weight
+  over 50 kg is rounded up to the next whole kilogram, at $1 each, so 50.2 kg
+  pays $51.
+- **Why:** The user asked for $1 per part-kg. Treating the limit itself as
+  "not over" matches how the size limits work.
+
+### Speedy shipping doubles Heavy-rate costs too
+
+- **Unclear:** Whether the speedy charge covers parcels charged at the Heavy
+  rate.
+- **Assumed:** Yes. The speedy charge is the sum of the parcel costs, whatever
+  rate each is charged at.
+- **Why:** It keeps "speedy doubles the order cost" true, and needs no change.
