@@ -28,6 +28,6 @@ internal static class ParcelPricing
     public static ParcelLineItem Price(Parcel parcel)
     {
         var size = Classify(parcel);
-        return new ParcelLineItem(parcel, size, PriceOf(size));
+        return new ParcelLineItem(parcel, size, PriceOf(size), 0m);
     }
 }

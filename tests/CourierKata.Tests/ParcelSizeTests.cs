@@ -70,7 +70,7 @@ public class ParcelSizeTests
     private static ParcelSize SizeOf(decimal length, decimal width, decimal height)
     {
         var cart = new Cart();
-        cart.AddParcel(new Parcel(length, width, height));
+        cart.AddParcel(new Parcel(length, width, height, 0.5m));
 
         return Assert.IsType<ParcelLineItem>(Assert.Single(cart.GetQuote().Items)).Size;
     }

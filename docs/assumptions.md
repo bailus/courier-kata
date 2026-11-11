@@ -160,3 +160,29 @@ same commit as the code that depends on them.
 - **Why:** C# enums accept any underlying integer, so an unchecked value would
   silently be treated as Standard. Failing early matches how `Parcel` rejects
   invalid dimensions.
+
+## Weight
+
+### Weight is required, positive and in kilograms
+
+- **Unclear:** The brief adds weight limits but doesn't say how a parcel's
+  weight is given, or what counts as a valid weight.
+- **Assumed:** `Parcel` takes a required `Weight` as `decimal` kilograms.
+  Fractional weights are allowed. Zero or negative weights throw
+  `ArgumentOutOfRangeException` naming `Weight`. There is no upper limit.
+- **Why:** The limits are in kilograms, and the examples use fractions
+  (1.2 kg). Making weight required rather than giving it a default means a
+  parcel can't skip the weight check, which is the loophole the change
+  closes. Rejecting zero or less matches how dimensions are validated.
+
+### Overweight charge is shown separately on the parcel's line item
+
+- **Unclear:** Whether the quote should show the overweight charge or fold it
+  into the parcel's cost.
+- **Assumed:** A parcel line item shows `BaseCost` (the size price) and
+  `OverweightCharge` separately. Its `Cost` is their sum. Parcels within their
+  limit show an `OverweightCharge` of $0.
+- **Why:** Customers can see why a parcel costs more than its size price.
+  Keeping the charge on the parcel's own line ties it to that parcel, and `Cost`
+  still means what the line costs. A $0 charge gives every parcel line the
+  same shape.

@@ -2,10 +2,10 @@ namespace CourierKata.Tests;
 
 public class CartTests
 {
-    private static readonly Parcel Small = new(5m, 5m, 5m);
-    private static readonly Parcel Medium = new(20m, 5m, 5m);
-    private static readonly Parcel Large = new(70m, 5m, 5m);
-    private static readonly Parcel ExtraLarge = new(150m, 5m, 5m);
+    private static readonly Parcel Small = new(5m, 5m, 5m, 0.5m);
+    private static readonly Parcel Medium = new(20m, 5m, 5m, 0.5m);
+    private static readonly Parcel Large = new(70m, 5m, 5m, 0.5m);
+    private static readonly Parcel ExtraLarge = new(150m, 5m, 5m, 0.5m);
 
     [Fact]
     public void Line_items_are_in_the_order_parcels_were_added()
@@ -14,9 +14,9 @@ public class CartTests
 
         Assert.Equal(
             [
-                new ParcelLineItem(ExtraLarge, ParcelSize.ExtraLarge, 25m),
-                new ParcelLineItem(Small, ParcelSize.Small, 3m),
-                new ParcelLineItem(Medium, ParcelSize.Medium, 8m),
+                new ParcelLineItem(ExtraLarge, ParcelSize.ExtraLarge, 25m, 0m),
+                new ParcelLineItem(Small, ParcelSize.Small, 3m, 0m),
+                new ParcelLineItem(Medium, ParcelSize.Medium, 8m, 0m),
             ],
             cart.GetQuote().Items);
     }
@@ -28,8 +28,8 @@ public class CartTests
 
         Assert.Equal(
             [
-                new ParcelLineItem(Small, ParcelSize.Small, 3m),
-                new ParcelLineItem(Small, ParcelSize.Small, 3m),
+                new ParcelLineItem(Small, ParcelSize.Small, 3m, 0m),
+                new ParcelLineItem(Small, ParcelSize.Small, 3m, 0m),
             ],
             cart.GetQuote().Items);
     }
