@@ -109,23 +109,25 @@ same commit as the code that depends on them.
 
 ## Speedy shipping
 
-### Speedy charge equals the parcel subtotal
+### Speedy charge equals the discounted parcel subtotal
 
 - **Unclear:** "Speedy shipping doubles the cost of the entire order" while
   also being "listed as a separate item" and not changing parcel prices.
 - **Assumed:** The speedy shipping line item costs the sum of the parcel
-  line-item costs. The total is still the sum of every line item, so it
-  doubles.
+  line-item costs less any discount savings, which is the sum of every line
+  item before it. The total is still the sum of every line item, so the
+  discounted order doubles.
 - **Why:** This is the only reading that doubles the total, keeps parcel costs
   unchanged and shows speedy as its own item. It matches the brief's example
-  ($51 of parcels, $51 speedy, $102 total). Only parcel costs are doubled for
-  now; how speedy combines with later rules such as discounts is left to the
-  change that adds them.
+  ($51 of parcels, $51 speedy, $102 total). The discounts brief says "speedy
+  shipping applies after discounts are taken into account", so savings come
+  off before speedy doubles the order.
 
 ### Speedy item comes last
 
 - **Unclear:** Where the speedy item appears among the line items.
-- **Assumed:** It comes after all the parcel line items, and appears once.
+- **Assumed:** It comes after all the parcel and discount line items, and
+  appears once.
 - **Why:** Its cost depends on all the parcels, and the brief's example lists
   it after them.
 

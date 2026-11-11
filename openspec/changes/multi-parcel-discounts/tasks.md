@@ -58,13 +58,13 @@
 
 ## 3. Speedy shipping after discounts
 
-- [ ] 3.1 Write a failing test in `SpeedyShippingTests` for "Speedy shipping applies after discounts": three Medium parcels weighing 3 kg and three weighing 4 kg with Speedy give parcel items totalling $54, discounts saving $8 and $10, a speedy item of $36 and a total of $72. Change `Cart.GetQuote()` so the speedy item costs the sum of every item before it. Verify with `docker compose run --rm tests`.
-- [ ] 3.2 Add tests for these scenarios, implementing anything still missing:
+- [x] 3.1 Write a failing test in `SpeedyShippingTests` for "Speedy shipping applies after discounts": three Medium parcels weighing 3 kg and three weighing 4 kg with Speedy give parcel items totalling $54, discounts saving $8 and $10, a speedy item of $36 and a total of $72. Change `Cart.GetQuote()` so the speedy item costs the sum of every item before it. Verify with `docker compose run --rm tests`.
+- [x] 3.2 Add tests for these scenarios, implementing anything still missing:
   - "Discount items come between the parcel items and speedy shipping": three Medium parcels at $8 with Speedy give Medium $8, Medium $8, Medium $8, Medium parcel mania -$8, then speedy shipping $16, in that order
   - "Discounts are unaffected by speedy shipping": three Medium parcels at $8 quoted with Standard and with Speedy have equal discount items
 
   Check that the existing speedy shipping tests pass unchanged. Verify with `docker compose run --rm tests`.
-- [ ] 3.3 Rewrite "Speedy charge equals the parcel subtotal" in `docs/assumptions.md`: speedy now costs the parcel subtotal less any discount savings, which is what "speedy shipping applies after discounts" asks for. Verify that `docker compose run --rm tests` passes, then commit the entry with the code and tests from 3.1–3.2, and verify the working tree is clean afterwards.
+- [x] 3.3 Rewrite "Speedy charge equals the parcel subtotal" in `docs/assumptions.md`: speedy now costs the parcel subtotal less any discount savings, which is what "speedy shipping applies after discounts" asks for. Verify that `docker compose run --rm tests` passes, then commit the entry with the code and tests from 3.1–3.2, and verify the working tree is clean afterwards.
 
 ## 4. Final checks
 

@@ -40,7 +40,8 @@ public sealed class Cart
 
         if (Shipping == Shipping.Speedy)
         {
-            items.Add(new SpeedyShippingLineItem(parcelItems.Sum(item => item.Cost)));
+            // Speedy applies after discounts: it doubles the parcel costs less the savings.
+            items.Add(new SpeedyShippingLineItem(items.Sum(item => item.Cost)));
         }
 
         return new Quote(items.AsReadOnly(), items.Sum(item => item.Cost));
