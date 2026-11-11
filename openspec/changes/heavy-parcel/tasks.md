@@ -2,8 +2,8 @@
 
 ## 1. Rate on parcel line items (no price change)
 
-- [ ] 1.1 Add the public enum `ParcelRate { BySize, Heavy }` with XML doc comments. Change `ParcelLineItem` to `(Parcel, Size, Rate, BaseCost, OverweightCharge)`, with `ParcelPricing` always setting `ParcelRate.BySize` for now. Update every expected `new ParcelLineItem(...)` in the tests to pass `ParcelRate.BySize`. Add an assertion that a 0.5 kg Small parcel's line item has `Rate == ParcelRate.BySize`. Verify that `docker compose run --rm tests` passes with zero warnings.
-- [ ] 1.2 Add to `docs/assumptions.md`, then commit with the code: the line item shows the rate separately from the size, and `Size` stays decided by dimensions alone.
+- [x] 1.1 Add the public enum `ParcelRate { BySize, Heavy }` with XML doc comments. Change `ParcelLineItem` to `(Parcel, Size, Rate, BaseCost, OverweightCharge)`, with `ParcelPricing` always setting `ParcelRate.BySize` for now. Update every expected `new ParcelLineItem(...)` in the tests to pass `ParcelRate.BySize`. Add an assertion that a 0.5 kg Small parcel's line item has `Rate == ParcelRate.BySize`. Verify that `docker compose run --rm tests` passes with zero warnings.
+- [x] 1.2 Add to `docs/assumptions.md`, then commit with the code: the line item shows the rate separately from the size, and `Size` stays decided by dimensions alone.
 
 ## 2. Heavy rate and choosing the cheaper rate (test first, starting with the user's examples)
 

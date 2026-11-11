@@ -8,7 +8,7 @@ internal static class ParcelPricing
     public static ParcelLineItem Price(Parcel parcel)
     {
         var size = Classify(parcel);
-        return new ParcelLineItem(parcel, size, PriceOf(size), OverweightCharge(parcel.Weight, size));
+        return new ParcelLineItem(parcel, size, ParcelRate.BySize, PriceOf(size), OverweightCharge(parcel.Weight, size));
     }
 
     private static ParcelSize Classify(Parcel parcel)

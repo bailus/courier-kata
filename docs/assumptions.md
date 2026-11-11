@@ -224,3 +224,16 @@ same commit as the code that depends on them.
   their overweight charges.
 - **Why:** The brief's example (Small 1.2 kg with Speedy costs $10) needs it,
   and it keeps "speedy doubles the order cost" true.
+
+## Heavy parcels
+
+### Heavy is a rate, not a size
+
+- **Unclear:** The brief calls Heavy "a new parcel type", but the other types
+  are sizes decided by dimensions, and a heavy parcel still has dimensions.
+- **Assumed:** `Size` stays decided by dimensions alone. A parcel line item
+  also shows the `ParcelRate` it was charged at: `BySize` or `Heavy`. A 40 kg
+  parcel measuring 5 x 5 x 5 cm is Small, charged at the Heavy rate.
+- **Why:** Keeping both facts means neither is lost. A later rule that groups
+  parcels by size or by type can choose which one it needs, and the rule that
+  weight doesn't change size still holds.

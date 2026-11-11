@@ -22,7 +22,7 @@ public class ShippingOptionTests
         var quote = cart.GetQuote();
 
         Assert.Equal(Shipping.Standard, cart.Shipping);
-        Assert.Equal([new ParcelLineItem(Small, ParcelSize.Small, 3m, 0m)], quote.Items);
+        Assert.Equal([new ParcelLineItem(Small, ParcelSize.Small, ParcelRate.BySize, 3m, 0m)], quote.Items);
         Assert.Equal(3m, quote.Total);
     }
 
@@ -49,7 +49,7 @@ public class ShippingOptionTests
         cart.Shipping = Shipping.Speedy;
         var after = cart.GetQuote();
 
-        Assert.Equal([new ParcelLineItem(Small, ParcelSize.Small, 3m, 0m)], before.Items);
+        Assert.Equal([new ParcelLineItem(Small, ParcelSize.Small, ParcelRate.BySize, 3m, 0m)], before.Items);
         Assert.Equal(3m, before.Total);
         Assert.Equal(new SpeedyShippingLineItem(3m), after.Items[^1]);
         Assert.Equal(6m, after.Total);
